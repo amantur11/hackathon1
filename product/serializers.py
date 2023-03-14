@@ -1,13 +1,14 @@
 from rest_framework import serializers
 from cart import favorites
-from .models import Product, CollectionProducts, Slider, ImageProducts
+from .models import Product, CollectionProducts, Slider, ImageProducts, CallBack
 from about_us.models import Benefits
+from product.models import Like
 
 
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        fields = 'id get_images title text size_range collection price discount new_price'.split()
+        fields = '__all__'
 
 
 
@@ -16,7 +17,8 @@ class ProductListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        fields = 'id get_images title text size_range collection price discount new_price favo'.split()
+        fields = '__all__'
+
 
     def fav(self, obj):
         favorites = self.context.get('fav')
@@ -31,7 +33,7 @@ class ProductCartSerializer(serializers.ModelSerializer):
     image = serializers.SerializerMethodField('get_image')
     class Meta:
         model = Product
-        fields = 'id image title text size_range collection price discount new_price quantity'.split()
+        fields = '__all__'
 
     def get_quantity(self, obj):
         quantity = self.context.get('filter')[str(obj.id)]['quantity']
@@ -49,7 +51,8 @@ class MainSerializer(serializers.ModelSerializer):
 class BenefistSerializer(serializers.ModelSerializer):
     class Meta:
         model = Benefits
-        fields = 'images title text'.split()
+        fields = '__all__'
+        
 
 
 class ProductDetailSerializer(serializers.ModelSerializer):
@@ -57,7 +60,8 @@ class ProductDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        fields = 'id get_images title vendor_code text size_range cloth quantity_in_line material checkbox_hit checkbox_new collection price discount new_price favo'.split()
+        # fields = 'id get_images title vendor_code text size_range cloth quantity_in_line material checkbox_hit checkbox_new collection price discount new_price favo'.split()
+        fields = '__all__'
 
     def fav(self, obj):
         favorites = self.context.get('fav')
@@ -70,15 +74,35 @@ class ProductDetailSerializer(serializers.ModelSerializer):
 class CollectionSerializer(serializers.ModelSerializer):
     class Meta:
         model = CollectionProducts
-        fields = 'id title image'.split()
+        fields = '__all__'
 
 
 class SliderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Slider
-        fields = 'image link'.split()
+        fields = '__all__'
 
 
 class CallbackSesializer(serializers.Serializer):
     name = serializers.CharField(max_length=100, min_length=5)
     phone = serializers.CharField(max_length=100)
+
+    class Meta:
+        model = CallBack
+        fields = '__all__'
+
+class CommentSerializer(serializers.ModelSerializer):
+    owner = serializers.ReadOnlyField(source = 'owner.email')
+    class Meta:
+        model = Product
+        fields = '__all__'
+
+
+
+class likeSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Like
+        fields = '__all__' 
+
+

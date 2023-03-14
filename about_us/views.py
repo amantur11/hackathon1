@@ -6,6 +6,8 @@ from rest_framework.response import Response
 from rest_framework.generics import ListAPIView
 from rest_framework.pagination import PageNumberPagination
 
+
+
 class AboutUsAPIView(ListAPIView):
     """О нас"""
     serializer_class = AboutSerializer
@@ -50,3 +52,5 @@ class FooterAPIView(APIView):
         data = FooterOneSerialiser(footerone, many=True).data
         data2 = FooterTwoSerialiser(footertwo, many=True).data
         return Response(data=data+[{'second' :data2}])
+    
+
