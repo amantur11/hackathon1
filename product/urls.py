@@ -7,14 +7,14 @@ from rest_framework.views import APIView
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
-router.register('modelviewset_crud', ProductModelViewSet)
-router.register('products_mixin', ProductMixin)
+router.register('', ProductModelViewSet)
+# router.register('products_mixin', ProductMixin)
 
 
 urlpatterns = [
     # path('api/v1/main/collection/', CollectionListAPIView.as_view()),
-    path('api/v1/products/', ProductListAPIView.as_view()),
-    path('api/v1/products/<int:id>/', ProductDetailAPIView.as_view()),
+    # path('api/v1/products/', ProductListAPIView.as_view()),
+    # path('api/v1/products/<int:id>/', ProductDetailAPIView.as_view()),
     # path('api/v1/collection/', CollectionListAPIView.as_view()),
     path('api/v1/main/search/', SearchAPIView.as_view()),
     path('api/v1/main/slider/', MainSliderAPIView.as_view()),

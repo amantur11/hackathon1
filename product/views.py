@@ -23,15 +23,15 @@ class ProductAPIView(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticatedOrReadOnly]
 
 
-class ProductListAPIView(APIView):  
-    queryset = Product.objects.all()    
-    pagination_class = PageNumberPagination
-    serializer_class = ProductListSerializer
+# class ProductListAPIView(APIView):  
+#     queryset = Product.objects.all()    
+#     pagination_class = PageNumberPagination
+#     serializer_class = ProductListSerializer
 
 
-    def get_serializer_context(self):
-        fav = Favorites(self.request)
-        return {'fav': fav.fav}
+    # def get_serializer_context(self):
+    #     fav = Favorites(self.request)
+    #     return {'fav': fav.fav}
         
 
 
@@ -213,12 +213,12 @@ class ProductModelViewSet(viewsets.ModelViewSet):  # полный крад
         serializer.save(owner=self.request.user)
 
 
-class ProductMixin(mixins.CreateModelMixin,
-                    mixins.RetrieveModelMixin,
-                    mixins.ListModelMixin,
-                    viewsets.GenericViewSet):
-    queryset = Product.objects.all()
-    serializer_class = ProductSerializer
+# class ProductMixin(mixins.CreateModelMixin,
+#                     mixins.RetrieveModelMixin,
+#                     mixins.ListModelMixin,
+#                     viewsets.GenericViewSet):
+#     queryset = Product.objects.all()
+#     serializer_class = ProductSerializer
 
 
 

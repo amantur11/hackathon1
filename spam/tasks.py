@@ -7,7 +7,7 @@ from spam.models import Contact
 def send_spam():
     emails = [i.email for i in Contact.objects.all()]
     send_mail(
-        'Xacaton shop project'# title
+        'Xacaton shop project',# title
         f'Привет загляни на наш сайт', # body
         'amanturkubatov545@gmail.com', # from
         emails # to
