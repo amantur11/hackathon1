@@ -20,13 +20,14 @@ from django.conf.urls.static import static
 from .yasg import ulrpatterns as doc_urls
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
-
+from rest_framework.routers import DefaultRouter
+from product.views import ProductModelViewSet
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/account/', include('account.urls')),
-    path('', include('product.urls')),
+    path('api/v1/product/', include('product.urls')),
     path('', include('about_us.urls')),
     path('', include('cart.urls')),
     path('api/v1/spam/', include('spam.urls')),

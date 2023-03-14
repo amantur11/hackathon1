@@ -6,6 +6,7 @@ from .serializers import ProductListSerializer, CollectionSerializer, ProductDet
 from rest_framework import status, mixins, viewsets
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.generics import ListAPIView, CreateAPIView
+from rest_framework.viewsets import ViewSet, ModelViewSet
 from django.db.models import Q
 from about_us.models import Benefits
 from cart.favorites import Favorites
@@ -22,7 +23,7 @@ class ProductAPIView(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticatedOrReadOnly]
 
 
-class ProductListAPIView(APIView):
+class ProductListAPIView(APIView):  
     queryset = Product.objects.all()    
     pagination_class = PageNumberPagination
     serializer_class = ProductListSerializer
@@ -90,6 +91,12 @@ class MainPageNewAPIVIew(APIView):
 
 
 class ProductDetailAPIView(APIView):
+
+    queryset = Product.objects.all()
+    pagination_class = PageNumberPagination
+    serializer_class = ProductListSerializer
+
+
     def get(self, request, id):
         fav = Favorites(request)
         try:    
@@ -184,6 +191,7 @@ class CollectionNewAPIView(ListAPIView):
 
 
 class CallbackAPIView(CreateAPIView):
+    queryset = CallBack.objects.all()
     serializer_class = CallbackSesializer
     def post(self, request):
         serializer = self.serializer_class(data = request.data)
@@ -213,7 +221,4 @@ class ProductMixin(mixins.CreateModelMixin,
     serializer_class = ProductSerializer
 
 
-@api_view(['GET'])
-def get_hello(request):
-    big_function.delay()
-    return Response('HELLOO')
+

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Product, CollectionProducts, ImageProducts, Slider, CallBack
+from .models import Product, CollectionProducts, ImageProducts, Slider, CallBack, Comment, Like
 
 
 class GalleryInline(admin.TabularInline):
@@ -21,3 +21,5 @@ admin.site.register(Product, ProductAdmin)
 admin.site.register(CollectionProducts)
 admin.site.register(Slider)
 admin.site.register(CallBack, CallBackAdmin)
+admin.site.register(Comment)
+admin.site.register(Like)
