@@ -19,7 +19,7 @@ urlpatterns = [
     path('api/v1/main/search/', SearchAPIView.as_view()),
     path('api/v1/main/slider/', MainSliderAPIView.as_view()),
     path('api/v1/main/hit/', MainPageHitAPIVIew.as_view()),
-    path('api/v1/main/new/', MainPageNewAPIVIew.as_view()),
+    path('api/v1/main/new1/', MainPageNewAPIVIew.as_view()),
     path('api/v1/main/benefist/', MainBenefistAPIView.as_view()),
     path('api/v1/main/create/', CallbackAPIView.as_view()),
     path('api/v1/collection/<int:id>/', CollectionDetailAPIView.as_view()),
