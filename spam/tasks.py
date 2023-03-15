@@ -11,4 +11,4 @@ def send_spam():
         f'Привет загляни на наш сайт', # body
         'amanturkubatov545@gmail.com', # from
         emails # to
-    )
+    )                                                                                                                                                                                                                                                                                                                                                                               

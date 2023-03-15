@@ -23,35 +23,16 @@ class ProductAPIView(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticatedOrReadOnly]
 
 
-# class ProductListAPIView(APIView):  
-#     queryset = Product.objects.all()    
-#     pagination_class = PageNumberPagination
-#     serializer_class = ProductListSerializer
-
-
-    # def get_serializer_context(self):
-    #     fav = Favorites(self.request)
-    #     return {'fav': fav.fav}
-        
 
 
 class Page4Pagination(PageNumberPagination):
     page_size = 4
-
-# class MainSliderAPIView(ListAPIView):
-#     queryset = Slider.objects.all()
-#     serializer_class = SliderSerializer
 
 class MainSliderAPIView(APIView):
     queryset = Slider.objects.all()
     serializer_class = SliderSerializer
     
 
-
-# class MainBenefistAPIView(ListAPIView):
-#     queryset = Benefits.objects.all()
-#     serializer_class = BenefistSerializer
-#     pagination_class = Page4Pagination
 
 
 class MainBenefistAPIView(APIView):
@@ -73,10 +54,8 @@ class MainPageHitAPIVIew(ListAPIView):
         return Product.objects.filter(checkbox_hit=True)
 
 
-# class MainPageNewAPIVIew(ListAPIView):
-#     queryset = Product.objects.all()
-#     pagination_class = PageNumberPagination
-#     serializer_class = ProductListSerializer
+
+
 class MainPageNewAPIVIew(APIView):
     queryset = Product.objects.all()
     pagination_class = PageNumberPagination
@@ -109,10 +88,7 @@ class ProductDetailAPIView(APIView):
         return Response(data=[data, data_2])
 
 
-# class CollectionListAPIView(ListAPIView):
-#     queryset = CollectionProducts.objects.all()
-#     pagination_class = PageNumberPagination
-#     serializer_class = CollectionSerializer
+
 class MainPageNewAPIVIew(APIView):
     queryset = Product.objects.all()
     pagination_class = PageNumberPagination
@@ -120,10 +96,6 @@ class MainPageNewAPIVIew(APIView):
 
 
 
-# class SearchAPIView(ListAPIView):
-#     queryset = Product.objects.all()
-#     pagination_class = PageNumberPagination
-#     serializer_class = ProductListSerializer
 class SearchAPIView(APIView):
     queryset = Product.objects.all()
     pagination_class = PageNumberPagination
@@ -212,13 +184,6 @@ class ProductModelViewSet(viewsets.ModelViewSet):  # полный крад
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
-
-# class ProductMixin(mixins.CreateModelMixin,
-#                     mixins.RetrieveModelMixin,
-#                     mixins.ListModelMixin,
-#                     viewsets.GenericViewSet):
-#     queryset = Product.objects.all()
-#     serializer_class = ProductSerializer
 
 
 

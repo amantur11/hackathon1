@@ -29,6 +29,7 @@ class CollectionProducts(models.Model):
         verbose_name_plural = 'Коллекции'
 
 
+
 class Product(models.Model):
     title = models.CharField(max_length=50)
     text = RichTextField()
@@ -55,13 +56,11 @@ class Product(models.Model):
 
 
 class ImageProducts(models.Model):
-    # image = models.ImageField(upload_to='')
-    # color = ColorField(default='#FF0000')
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="images")
     image = models.ImageField(upload_to='post_images')
 
     def __str__(self):
-        return f'{self.post.title}'
+        return f'{self.product.title}'
     
 
 class Slider(models.Model):
@@ -76,13 +75,13 @@ class Slider(models.Model):
 
 class Comment(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments')
-    post = models.ForeignKey(Product, on_delete=models.CASCADE, related_name= 'comments')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name= 'comments')
     body = models.TextField()
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f'{self.owner} -> {self.post.title}'
+        return f'{self.owner} -> {self.product.title}'
     
 
 
@@ -96,7 +95,7 @@ class Like(models.Model):
         related_name='likes'
     )
      
-    post = models.ForeignKey(
+    product = models.ForeignKey(
         Product,
         on_delete=models.CASCADE,
         related_name='likes'
@@ -104,4 +103,4 @@ class Like(models.Model):
     is_like = models.BooleanField(default=False)
 
     def __str__(self):
-        return f'{self.owner} liked - {self.post.title}'
+        return f'{self.owner} liked - {self.product.title}'
