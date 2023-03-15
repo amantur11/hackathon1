@@ -93,6 +93,8 @@ class CallbackSesializer(serializers.Serializer):
 
 class CommentSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source = 'owner.email')
+    
+    
     class Meta:
         model = Product
         fields = '__all__'
