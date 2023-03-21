@@ -2,7 +2,7 @@ from rest_framework import serializers
 from cart import favorites
 from .models import Product, CollectionProducts, Slider, ImageProducts, CallBack
 from about_us.models import Benefits
-from product.models import Like
+# from product.models import Like, Rating, Favorite
 
 
 class ProductSerializer(serializers.ModelSerializer):
@@ -98,13 +98,5 @@ class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = '__all__'
-
-
-
-class likeSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Like
-        fields = '__all__' 
 
 

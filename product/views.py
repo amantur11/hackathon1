@@ -1,4 +1,5 @@
 from rest_framework.views import APIView
+from rest_framework.viewsets import GenericViewSet
 from rest_framework.response import Response
 from .models import Product, CollectionProducts, Slider, CallBack
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
@@ -11,10 +12,15 @@ from django.db.models import Q
 from about_us.models import Benefits
 from cart.favorites import Favorites
 from rest_framework import filters
+from django.shortcuts import render
 import random
 from rest_framework.decorators import api_view, permission_classes
 from product.tasks import big_function
+from .permission import *
 
+
+class Page4Pagination(PageNumberPagination):
+    page_size = 4
 
 
 class ProductAPIView(viewsets.ModelViewSet):
@@ -24,9 +30,6 @@ class ProductAPIView(viewsets.ModelViewSet):
 
 
 
-
-class Page4Pagination(PageNumberPagination):
-    page_size = 4
 
 class MainSliderAPIView(APIView):
     queryset = Slider.objects.all()
@@ -178,12 +181,12 @@ class CallbackAPIView(CreateAPIView):
 class ProductModelViewSet(viewsets.ModelViewSet):  # полный крад 
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [IsAuthenticatedOrReadOnly, UserHasPermissionsMixin]
 
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
 
-
-
+def auth(request):
+    return render(request, 'oauth.html')

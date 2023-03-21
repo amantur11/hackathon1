@@ -26,7 +26,6 @@ class Favorites(object):
     def save(self):
         """Обновление сессии fav"""
         self.session[settings.FAV_SESSION_ID] = self.fav
-        #Отметить сеанс как "измененный", чтобы убедиться, что он сохранен
         self.session.modified = True
 
 
@@ -40,6 +39,6 @@ class Favorites(object):
             self.save()
 
     def clear(self):
-        # удаление избранного из сессии
+        """удаление избранного из сессии"""
         del self.session[settings.CART_SESSION_ID]
         self.session.modified = True

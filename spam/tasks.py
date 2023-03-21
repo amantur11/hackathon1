@@ -8,7 +8,7 @@ def send_spam():
     emails = [i.email for i in Contact.objects.all()]
     send_mail(
         'Xacaton shop project',# title
-        f'Привет загляни на наш сайт', # body
+        f'Привет загляни на наш сайт у нас новый товар', # body
         'amanturkubatov545@gmail.com', # from
         emails # to
     )                                                                                                                                                                                                                                                                                                                                                                               

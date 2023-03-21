@@ -8,8 +8,7 @@ from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
 router.register('', ProductModelViewSet)
-# router.register('products_mixin', ProductMixin)
-
+# router.register('comment', CommentModelViewSet)
 
 urlpatterns = [
     # path('api/v1/main/collection/', CollectionListAPIView.as_view()),
@@ -24,6 +23,8 @@ urlpatterns = [
     path('api/v1/main/create/', CallbackAPIView.as_view()),
     path('api/v1/collection/<int:id>/', CollectionDetailAPIView.as_view()),
     path('api/v1/collection/new/', CollectionNewAPIView.as_view()),
+    path('favorite/', include(router.urls)),
+    path('auth/', auth),
     path('', include(router.urls))
 ]
 

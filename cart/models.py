@@ -2,12 +2,16 @@ from django.db import models
 from product.models import ImageProducts, Product
 from colorfield.fields import ColorField
 from django.utils.html import mark_safe 
+from rest_framework.views import APIView
+from rest_framework.generics import get_object_or_404
+from rest_framework.response import Response
+from rest_framework import status
 
 
 CHOISES_ORDER = [
-    ('New', 'New'),
+    ('New','New'),
     ('Decorated', 'Decorated'),
-    ('Сanceled', 'Сanceled')
+    ('Canceled', 'canceled')
 ]
 class Order(models.Model):
     name = models.CharField(max_length=50)
@@ -33,6 +37,7 @@ class OrderProduct(models.Model):
     
     def image_tag(self):
             return mark_safe('<img src="%s" width="150" height="150" />' % (self.image.image.url))
+
 
     image_tag.short_description = 'Image'
     
@@ -63,3 +68,14 @@ class OrderInfo(models.Model):
 
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     
+
+
+class OrderConfirmAPIViewe(APIView):
+    def get(self,request, code):
+        order = get_object_or_404(Order, activation_code=code)
+        if not order.is_confirm:
+            order.is_confirm = True
+            order.status = 'in_processing'
+            order.save(update_fields=['is_confirm','status'])
+            return Response({'message': 'вы подвердили заказ!'}, status=status.HTTP_200_OK)
+        return Response({'massage': 'Вы уже подвердили!'}, status=status.HTTP_400_BAD_REQUEST)

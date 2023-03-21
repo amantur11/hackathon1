@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
-
+import os
 from pathlib import Path
 from decouple import config
 import dj_database_url
@@ -41,19 +41,24 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+
     #
     'rest_framework',
     'colorfield',
     'drf_yasg',
     'ckeditor',
     'corsheaders',
+    'social_django',
+    
+    
     # my_apps
     'account',
     'about_us',
     'cart',
     'product',
     'spam',
-    
+    'feedback',
+    'users',
 ]
 
 REST_FRAMEWORK = {
@@ -84,8 +89,9 @@ ROOT_URLCONF = 'main.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -108,6 +114,11 @@ DATABASES = {
         default=config('DATABASE_URL')
     )
 }
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.github.GithubOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
 
 
 
@@ -151,10 +162,16 @@ MEDIA_URL = '/media/'
 
 MEDIA_ROOT = 'media/'
 
+SOCIAL_AUTH_POSTGRES_JSONFIELD = True
+
+SOCIAL_AUTH_GITHUB_KEY = '220e7c701cf8735fdb3f'
+SOCIAL_AUTH_GITHUB_SECRET = '8be01d54e3be968549b9aa3609cbb390ec4284b6'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
 
 
 REST_FRAMEWORK = {
@@ -176,6 +193,8 @@ EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 
 
 
+
+
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
@@ -190,3 +209,39 @@ CORS_ALLOWED_ORIGINS = [
 
 CELERY_BROKER_URL = 'redis://localhost:6379'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+
+
+import logging
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True,
+
+    'formatters': {
+        'main_format': {
+            'format': '{asctime} - {levelname} - {module} - {filename} - {message}',
+            'style': '{',
+        },
+    },
+
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'main_format',
+        },
+        'file': {
+            'class': 'logging.FileHandler',
+            'formatter': 'main_format',
+            'filename': 'information.log',
+        },
+    },
+
+    'loggers': {
+        'main': {
+            'handlers': ['console', 'file'],
+            'level': 'INFO',
+            'propagate': True, 
+        },
+    },
+}
+
