@@ -1,13 +1,9 @@
 asgiref==3.5.2
-certifi==2022.5.18.1
 charset-normalizer==2.0.12
 coreapi==2.3.3
-coreschema==0.0.4
-defusedxml==0.7.1
 Django
 django-ckeditor==6.4.1
 django-colorfield==0.7.0
-django-js-asset==2.0.0
 django-rest-swagger==2.2.0
 django-svg-image-form-field==1.0.1
 djangorestframework==3.13.1
@@ -25,8 +21,6 @@ pytz==2022.1
 requests==2.27.1
 ruamel.yaml==0.17.21
 ruamel.yaml.clib==0.2.6
-simplejson==3.17.6
-sqlparse==0.4.2
 tzdata==2022.1
 uritemplate==4.1.1
 urllib3==1.26.9
@@ -38,3 +32,5 @@ django-cors-headers
 djangorestframework-simplejwt
 redis
 celery
+social-auth-app-django
+

@@ -9,8 +9,8 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework.generics import ListAPIView, CreateAPIView, ListCreateAPIView
 from .serializers import CartSerializer, OrderSerializer, CartUpdateSerializer
 from .models import Order, OrderInfo, OrderProduct
-from cart import serializers
 import random
+from rest_framework import status
 
 
 class Page12Pagination(PageNumberPagination):
@@ -141,3 +141,16 @@ class CartClearAPIVew(APIView):
         card = Cart(request)
         card.clear()
         return Response(data={'message': 'ok'})
+
+
+class OrderConfirmAPIViewe(APIView):
+    def get(self,request, code):
+        order = get_object_or_404(Order, activation_code=code)
+        if not order.is_confirm:
+            order.is_confirm = True
+            order.status = 'in_processing'
+            order.save(update_fields=['is_confirm','status'])
+            return Response({'message': 'вы подвердили заказ!'}, status=status.HTTP_200_OK)
+        return Response({'massage': 'Вы уже подвердили!'}, status=status.HTTP_400_BAD_REQUEST)
+
+

@@ -1,6 +1,5 @@
 from django.urls import path
-from .views import (CartAddAPIView, CartListAPIView, CartDeleteAPIView, FavoritesAddAPIView, FavoritesListAPIView, FavoritesDeleteAPIView,
-CartClearAPIVew, CartOrderAPIView, CartUpdateAPIView)
+from .views import *
 
 
 urlpatterns = [
@@ -13,4 +12,5 @@ urlpatterns = [
     path('api/v1/favorites/', FavoritesListAPIView.as_view()),
     path('api/v1/favorites/add/<int:id>/', FavoritesAddAPIView.as_view()),
     path('api/v1/favorites/delete/<int:id>/', FavoritesDeleteAPIView.as_view()), 
+    path('confirm/<uuid:code>/', OrderConfirmAPIViewe.as_view()),
 ]
