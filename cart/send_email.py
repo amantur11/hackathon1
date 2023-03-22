@@ -11,3 +11,4 @@ def send_order_confirmation_code(email, code , name, price):
         'amanturkubatov545@gmail.com',
         [email]
     )
+
